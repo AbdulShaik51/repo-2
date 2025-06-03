@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to left, rgb(255, 3, 3), rgb(0, 0, 0));
+            font-family: monospace;
+        }
+
+        .container {
+            background-color: white;
+            width: 400px;
+            padding: 25px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            border: 2px solid rgb(255, 3, 3);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        input[type="number"] {
+            font-weight: 600;
+            width: 40px;
+            background-color: rgb(255, 3, 3);
+            color: white;
+
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+
+        }
+
+        .Generate {
+            background-color: red;
+            color: white;
+            font-family: monospace;
+            font-size: 16px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: 0.2s ease;
+
+        }
+
+        .copy {
+            background-color: red;
+            color: white;
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 20px;
+            transition: 0.2s ease;
+
+
+        }
+
+        .Generate:active {
+            transform: scale(0.9);
+        }
+
+        .Generate:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .copy:active {
+            transform: scale(0.9);
+
+        }
+
+        .copy:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Secure Password Generator</h2>
+        <input type="text" id="password" readonly placeholder="Your Password Appears Here" />
+        <div class="controls">
+            <input type="number" id="length" min="6" max="20" value="12" />
+            <button class="Generate" onclick="generatepassword()">Generate</button>
+            <button class="copy" onclick="copypassword()">Copy</button>
+        </div>
+    </div>
+    <script>
+        function generatepassword() {
+            let length = document.getElementById("length").value;
+            if (length < 6 || length > 20) {
+                alert("Password length must be between 6 and 20");
+                document.getElementById("length").value = 6;
+                return;
+            }
+            const chars =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("password").value=password;
+        }
+        function copypassword(){
+            const passwordField=document.getElementById("password");
+            if(passwordField.value===""){
+                alert("Generate a Password First");
+                return;
+            }
+            passwordField.select()
+            document.execCommand("copy");
+            alert("Password Copied");
+        }
+    </script>
+</body>
+
+</html>
